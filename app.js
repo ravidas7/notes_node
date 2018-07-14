@@ -1,4 +1,3 @@
-const fs = require('fs');
 const yargs = require('yargs');
 
 const notes = require('./notes.js');
@@ -6,24 +5,24 @@ const notes = require('./notes.js');
 const titleOptions = {
   describe: 'Title of note',
   demand: true,
-  alias: 't'
+  alias: 't',
 };
 const bodyOptions = {
   describe: 'Body of note',
   demand: true,
-  alias: 'b'
+  alias: 'b',
 };
 const argv = yargs
   .command('add', 'Add a new note', {
     title: titleOptions,
-    body: bodyOptions
+    body: bodyOptions,
   })
   .command('list', 'List all notes')
   .command('read', 'Read a note', {
     title: titleOptions,
   })
   .command('remove', 'Remove a note', {
-    title: titleOptions
+    title: titleOptions,
   })
   .help()
   .argv;
@@ -36,28 +35,24 @@ if (command === 'add') {
     console.log('Note created');
     notes.logNote(note);
   } else {
-    console.log('Duplicate note...')
+    console.log('Duplicate note...');
   }
-}
-else if (command === 'list') {
+} else if (command === 'list') {
   const allNotes = notes.getAll();
   console.log(`Printing ${allNotes.length} note(s).`);
-  allNotes.forEach((note) => notes.logNote(note));
-}
-else if (command === 'read') {
+  allNotes.forEach(note => notes.logNote(note));
+} else if (command === 'read') {
   const note = notes.getNote(argv.title);
   if (note) {
     console.log('Note found');
     notes.logNote(note);
   } else {
-    console.log('Note not found...')
+    console.log('Note not found...');
   }
-}
-else if (command === 'remove') {
+} else if (command === 'remove') {
   const noteRemoved = notes.removeNote(argv.title);
-  const message = noteRemoved ? 'Note removed!' : 'Note not found'
+  const message = noteRemoved ? 'Note removed!' : 'Note not found';
   console.log(message);
-}
-else {
-  console.log('Command not recognized')
+} else {
+  console.log('Command not recognized');
 }
