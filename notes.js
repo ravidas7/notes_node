@@ -10,7 +10,7 @@ const fetchNotes = () => {
 }
 
 const saveNotes = (notes) => {
-  fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+  fs.writeFileSync('notes-data.json', JSON.stringify(notes, null, "\t"));
 }
 
 const getAll = () => {
