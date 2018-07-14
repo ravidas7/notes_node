@@ -4,6 +4,14 @@ A CLI tool to store notes in a JSON file.
 
 This is my first node.js project thanks to this [Udemy course](https://www.udemy.com/the-complete-nodejs-developer-course-2/).
 
+## Installation
+
+```sh
+git clone https://github.com/Angristan/notes-node.git
+cd notes-node
+npm install
+```
+
 ## Usage
 
 ```
