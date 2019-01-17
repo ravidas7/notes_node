@@ -1,54 +1,53 @@
 const fs = require('fs');
 
-const fetchNotes = () => {
+var fetchNotes = () => {
   try {
-    const notesString = fs.readFileSync('notes-data.json');
-    const notes = JSON.parse(notesString);
-    return notes;
+    var notesString = fs.readFileSync('notes-data.json');
+    return JSON.parse(notesString);
   } catch (e) {
     return [];
   }
 };
 
-const saveNotes = (notes) => {
-  fs.writeFileSync('notes-data.json', JSON.stringify(notes, null, '\t'));
+var saveNotes = (notes) => {
+  fs.writeFileSync('notes-data.json', JSON.stringify(notes));
 };
 
-const getAll = () => { fetchNotes(); };
-
-const addNote = (title, body) => {
-  const notes = fetchNotes();
-  const noteToAdd = {
+var addNote = (title, body) => {
+  var notes = fetchNotes();
+  var note = {
     title,
-    body,
+    body
   };
-  const duplicateNotes = notes.filter(note => note.title === title);
+  var duplicateNotes = notes.filter((note) => note.title === title);
 
   if (duplicateNotes.length === 0) {
-    notes.push(noteToAdd);
+    notes.push(note);
     saveNotes(notes);
-    return noteToAdd;
+    return note;
   }
-  return undefined;
 };
 
-const getNote = (title) => {
-  const notes = fetchNotes();
-  const filteredNotes = notes.filter(note => note.title === title);
+var getAll = () => {
+  return fetchNotes();
+};
 
+var getNote = (title) => {
+  var notes = fetchNotes();
+  var filteredNotes = notes.filter((note) => note.title === title);
   return filteredNotes[0];
 };
 
-const removeNote = (title) => {
-  const notes = fetchNotes();
-  const updatedNotes = notes.filter(note => note.title !== title);
-  saveNotes(updatedNotes);
+var removeNote = (title) => {
+  var notes = fetchNotes();
+  var filteredNotes = notes.filter((note) => note.title !== title);
+  saveNotes(filteredNotes);
 
-  return notes.length !== updatedNotes.length;
+  return notes.length !== filteredNotes.length;
 };
 
-const logNote = (note) => {
-  console.log('===');
+var logNote = (note) => {
+  console.log('--');
   console.log(`Title: ${note.title}`);
   console.log(`Body: ${note.body}`);
 };
@@ -58,5 +57,5 @@ module.exports = {
   getAll,
   getNote,
   removeNote,
-  logNote,
+  logNote
 };
